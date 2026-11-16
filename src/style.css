@@ -230,3 +230,6 @@ table.t{width:100%;border-collapse:collapse;background:#fff;border:1px solid var
 .rg-sector--photo svg{position:absolute}
 .rg-sector--photo:hover .sp{transform:scale(1.05)}
 .rg-sector--photo:hover::before{background:linear-gradient(180deg,rgba(163,26,38,.2) 0%,rgba(163,26,38,.6) 45%,rgba(122,20,28,.95) 100%)}
+
+.login{min-height:calc(100vh - 120px);display:flex;align-items:center;justify-content:center;padding:48px 20px;background:var(--stone)}
+.login form{width:min(400px,100%)}

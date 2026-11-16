@@ -169,11 +169,20 @@ function contactWire(){$("#cform").addEventListener("submit",ev=>{ev.preventDefa
 function notFound(){return pageHero("Not found","Page not found","The page you're looking for isn't here.",`<a href="#/">Home</a>`)+`<section class="section"><div class="wrap"><a class="rg-btn rg-btn--primary" href="#/businesses">Browse businesses</a></div></section>`}
 
 /* ---------- CMS ---------- */
-function admin(sub,q){
+const AUTH={user:"admin",salt:"ca353dc9da5f1e08",hash:"3ba64f75082133b2ba8250ef5ad9a9bb96e904507b159e7b1e5d7ad8625f9371"};
+const authed=()=>{try{return sessionStorage.getItem("rg-cms-auth")===AUTH.hash}catch(e){return window.__rgAuth===AUTH.hash}};
+async function sha(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("")}
+function login(){return `<div class="login"><form class="panel form" id="lform" autocomplete="on"><div class="eyebrow">Ruparelia Group</div><h1 class="h-m" style="margin:6px 0 4px">Portfolio CMS</h1><p class="muted" style="margin:0 0 8px;font-size:14px">Sign in to manage businesses, categories and news.</p>
+<label>Username<input name="u" autocomplete="username" required></label><label>Password<input name="p" type="password" autocomplete="current-password" required></label><div id="lmsg" role="alert"></div><button class="rg-btn rg-btn--primary" type="submit">Sign in</button><a href="#/" class="muted" style="font-size:14px">← Back to website</a></form></div>`}
+function loginWire(){const f=$("#lform");f.u.focus();f.onsubmit=async ev=>{ev.preventDefault();const lock=+(sessionStorage.getItem("rg-cms-lock")||0);if(Date.now()<lock){$("#lmsg").innerHTML=`<div class="alert crit">Too many attempts. Try again in ${Math.ceil((lock-Date.now())/1000)} seconds.</div>`;return}
+ const h=await sha(AUTH.salt+":"+f.u.value.trim().toLowerCase()+":"+f.p.value);
+ if(h===AUTH.hash){try{sessionStorage.setItem("rg-cms-auth",h);sessionStorage.removeItem("rg-cms-fails")}catch(e){window.__rgAuth=h}log("Signed in",f.u.value.trim());save();route()}
+ else{const n=+(sessionStorage.getItem("rg-cms-fails")||0)+1;sessionStorage.setItem("rg-cms-fails",n);if(n>=5){sessionStorage.setItem("rg-cms-lock",Date.now()+60000);sessionStorage.setItem("rg-cms-fails",0)}f.p.value="";$("#lmsg").innerHTML='<div class="alert crit">Wrong username or password.</div>'}}}
+function admin(sub,q){if(!authed())return login();
  const nav=[["","Dashboard"],["businesses","Businesses"],["categories","Categories"],["news","News"],["sources","Sources"],["audit","Audit log"]];
  const warn=warnings().length;
  const side=`<aside class="adm-side"><div style="font-family:var(--font-serif);font-size:20px;padding:4px 12px 16px">Portfolio CMS</div>${nav.map(([k,l])=>`<a href="#/admin${k?"/"+k:""}" class="${(sub||"")===k?"on":""}">${l}${k==="businesses"&&warn?`<span class="rg-tag rg-tag--critical" style="padding:0 8px">${warn}</span>`:""}</a>`).join("")}
- <a href="#/" style="margin-top:16px">← View website</a><div class="who">Signed in as Group Admin (demo)<br>Changes save in this browser only.<br><button class="rg-btn rg-btn--sm rg-btn--on-dark" id="areset" style="margin-top:10px">Reset demo data</button></div></aside>`;
+ <a href="#/" style="margin-top:16px">← View website</a><div class="who">Signed in as admin<br>Changes save in this browser only.<br><button class="rg-btn rg-btn--sm rg-btn--on-dark" id="aout" style="margin:10px 8px 0 0">Sign out</button><button class="rg-btn rg-btn--sm rg-btn--on-dark" id="areset" style="margin-top:10px">Reset demo data</button></div></aside>`;
  let main="";
  if(!sub)main=admDash();else if(sub==="businesses")main=admEnts(q);else if(sub==="categories")main=admCats();else if(sub==="news")main=admNews();else if(sub==="sources")main=admSources();else if(sub==="audit")main=admAudit();
  return `<div class="adm">${side}<div class="adm-main">${main}</div></div>`}
@@ -240,7 +249,7 @@ function openEditor(id){
   else log("Edited",e.name+(changes.length?": "+changes.join(", "):""));
   if(legalChanged){DB.workflow[e.id]="Legal review";e.published=false;log("Sent to legal review",e.name+" (ownership-related field changed)")}
   save();d.classList.remove("open");toast(legalChanged?"Saved. Ownership fields changed, so the record went back to legal review and was unpublished.":"Saved.");route()}}
-function adminWire(){
+function adminWire(){if(!authed())return loginWire();const o=$("#aout");if(o)o.onclick=()=>{try{sessionStorage.removeItem("rg-cms-auth")}catch(e){}window.__rgAuth=null;log("Signed out","admin");save();location.hash="#/admin";route()};
  $$("[data-edit]").forEach(b=>b.onclick=ev=>{ev.preventDefault();openEditor(b.dataset.edit)});$$("[data-new]").forEach(b=>b.onclick=()=>openEditor(null));
  const aq=$("#aq");if(aq)aq.oninput=()=>$$("#atbl tr[data-name]").forEach(r=>r.style.display=r.dataset.name.includes(aq.value.toLowerCase())?"":"none");
  $$("[data-up],[data-dn]").forEach(b=>b.onclick=()=>{const i=+(b.dataset.up??b.dataset.dn);const j=b.dataset.up!=null?i-1:i+1;if(j<0||j>=DB.categories.length)return;const c=DB.categories;[c[i],c[j]]=[c[j],c[i]];log("Reordered","Categories");save();route()});
@@ -253,7 +262,7 @@ function adminWire(){
 function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";clearTimeout(toast.t);toast.t=setTimeout(()=>t.style.display="none",3800)}
 
 /* ---------- shell ---------- */
-function header(){return `<div class="concept">Website concept for Ruparelia Group, prepared by Bright Thoughts Services Limited · <a href="#/admin">Open the CMS demo</a></div>
+function header(){return `<div class="concept">Website concept for Ruparelia Group, prepared by Bright Thoughts Services Limited</div>
 <header class="hdr"><div class="wrap"><a class="brand" href="#/" aria-label="Ruparelia Group home"><img src="${LOGOS["ruparelia-group"]}" alt="Ruparelia Group"></a>
 <nav class="nav" id="nav" aria-label="Main"><a href="#/about" data-n="about">About</a><div class="mm" data-n="businesses"><button aria-haspopup="true" onclick="location.hash='#/businesses'">Businesses ▾</button><div class="mm-panel">${visCats().map(c=>`<a href="#/businesses/${c.id}"><b>${esc(c.name)}</b><span>${esc(c.count)}</span></a>`).join("")}<a class="all" href="#/businesses">Full business directory →</a></div></div>
 <a href="#/impact" data-n="impact">Impact</a><a href="#/news" data-n="news">News</a><a href="#/careers" data-n="careers">Careers</a><a href="#/contact" data-n="contact">Contact</a></nav>
@@ -261,10 +270,11 @@ function header(){return `<div class="concept">Website concept for Ruparelia Gro
 function footer(){return `<footer class="ftr"><div class="wrap"><div class="ftr-top"><div><span class="ftr-logo"><img src="${LOGOS["ruparelia-group"]}" alt="Ruparelia Group"></span><p class="quote" style="font-size:18px;line-height:26px;margin:20px 0 0;color:rgba(247,244,239,.85)">Serving to Grow and Growing to Serve</p></div>
 ${[["Hospitality","hospitality"],["Real estate","real-estate"],["Education","education"]].map(([t,id])=>`<div><h5>${t}</h5><ul>${pub().filter(e=>e.cats[0]===id&&e.type!=="property").slice(0,6).map(e=>`<li><a href="#/b/${e.id}">${esc(e.name.replace(" (KISU)",""))}</a></li>`).join("")}</ul></div>`).join("")}
 <div><h5>Group</h5><ul><li><a href="#/about">About</a></li><li><a href="#/businesses">All businesses</a></li><li><a href="#/impact">Foundation</a></li><li><a href="#/news">News</a></li><li><a href="#/careers">Careers</a></li><li><a href="#/contact">Contact</a></li></ul></div></div>
-<div class="ftr-bot"><span>© ${new Date().getFullYear()} Ruparelia Group. Kampala, Uganda.</span><span><a href="#/privacy">Privacy</a> · <a href="#/legal">Legal notices</a> · <a href="#/admin">CMS</a></span></div></div></footer>`}
+<div class="ftr-bot"><span>© ${new Date().getFullYear()} Ruparelia Group. Kampala, Uganda.</span><span><a href="#/privacy">Privacy</a> · <a href="#/legal">Legal notices</a></span></div></div></footer>`}
 function simple(t){return pageHero("",t,"This page will hold the group's approved "+t.toLowerCase()+" text.",`<a href="#/">Home</a>`)}
 
 function route(){
+ if(/^\/admin\/?$/.test(location.pathname)&&!location.hash){history.replaceState(null,"","/#/admin")}
  const h=location.hash.slice(1)||"/";const [path,q]=h.split("?");const parts=path.split("/").filter(Boolean);
  let html,wire;const isAdmin=parts[0]==="admin";
  switch(parts[0]){
