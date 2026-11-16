@@ -273,6 +273,27 @@ body.menu-open{overflow:hidden}
 @media(max-width:900px){.leader--full,.grid .leader--full{grid-template-columns:1fr}.leader--full .leader__photo{aspect-ratio:4/3}}
 .grid .leader--full .leader__photo small{display:none}
 .leader__photo img{object-position:50% 25%}
+
+.news-card{display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.news-card:hover{box-shadow:var(--shadow-card);transform:translateY(-2px)}
+.news-card .art{height:200px;position:relative}
+.news-card .art>img{width:100%;height:100%;object-fit:cover;display:block}
+.news-card .badge{position:absolute;left:14px;bottom:-1px;background:#fff;border:1px solid var(--line);border-bottom:0;border-radius:4px 4px 0 0;height:48px;padding:6px 10px;display:flex;align-items:center}
+.news-card .badge img{height:34px;width:auto;max-width:100px;object-fit:contain}
+.news-card .b{display:flex;flex-direction:column;gap:8px;flex:1}
+.news-card h3{margin:2px 0 0}
+.news-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
+.news-ex{margin:0;font-size:14px;line-height:22px;color:var(--ink-muted);flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-card .link-arrow{align-self:flex-start;margin-top:6px;font-size:14px}
+.news-card:hover .link-arrow{color:var(--red)}
+.news-art{position:relative;width:100%;height:100%;background:var(--maroon)}
+.news-art svg{position:absolute;inset:0;width:100%;height:100%}
+.news-art__logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;border-radius:4px;padding:12px 18px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.news-art__logo img{height:64px;width:auto;display:block}
+.news-fig{margin:0 0 32px;border-radius:var(--radius-md);overflow:hidden;height:420px;background:var(--stone)}
+.news-fig img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:640px){.news-fig{height:240px}.news-card .art{height:180px}}
+@media(max-width:640px){.ftr-top{grid-template-columns:1fr;gap:28px}.ftr ul{line-height:34px}}
 </style></head>
 <body><a class="skip" href="#main">Skip to content</a><div id="app"></div>
 <div class="so" id="so" role="dialog" aria-label="Search"><div class="so-box"><input id="soq" type="search" placeholder="Search businesses, hotels, schools…" aria-label="Search"><div class="so-res" id="sores"></div></div></div>
@@ -518,7 +539,10 @@ const HERO_VIDEO="_tdrZpPlFLQ";
 const SECTOR_PHOTO={"hospitality":"speke-group-2","real-estate":"pearl-business-park-2","education":"kisu-1","floriculture":"rosebud-1","media":"premier-advertising-1","workforce":"inaries-1","insurance":"kingdom-kampala-2"};
 function sectorTile(c,light){const n=pub().filter(e=>e.cats.includes(c.id)).length;const ph=!light&&PHOTOS[SECTOR_PHOTO[c.id]];return `<a class="rg-sector${light?" rg-sector--light":""}${ph?" rg-sector--photo":""}" href="#/businesses/${c.id}">${ph?`<img class="sp" src="${ph}" alt="" decoding="async">`:""}${SWOOSH()}<span class="rg-sector__count">${esc(c.count||n+" businesses")}</span><span class="rg-sector__name">${esc(c.name)}</span></a>`}
 function newsArt(seed){const r=(seed.length*37)%30-15;return `<svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice"><rect width="400" height="170" fill="#4a0e12"/><rect x="${250+r}" width="150" height="170" fill="#5e151a"/><ellipse cx="${260+r}" cy="90" rx="190" ry="62" transform="rotate(-14 260 90)" fill="none" stroke="#ce2230" stroke-width="3"/><ellipse cx="${300+r}" cy="70" rx="140" ry="40" transform="rotate(-14 300 70)" fill="none" stroke="rgba(247,244,239,.35)" stroke-width="1.5"/></svg>`}
-function newsCard(n){const c=cat(n.cat);const ne=byId(n.ent);const ph=ne&&IMG(ne)[0];return `<a class="news-card" href="#/news/${n.id}"><div class="art">${ph?`<img src="${ph}" alt="" style="width:100%;height:100%;object-fit:cover;display:block">`:newsArt(n.id)}</div><div class="b"><span class="eyebrow">${esc(c?c.name:"Group")}</span><h3 class="serif">${esc(n.title)}</h3><span class="muted" style="font-size:14px">${fmtDate(n.date)}</span></div></a>`}
+const NEWS_PHOTO={"goldstar-30":null,"kabira":"kabira-country-club-1"};
+const newsImg=n=>{if(n.id in NEWS_PHOTO)return NEWS_PHOTO[n.id]?PHOTOS[NEWS_PHOTO[n.id]]:null;const e=byId(n.ent);return e&&IMG(e)[0]};
+function newsArtBlock(n){const e=byId(n.ent);return `<div class="news-art">${newsArt(n.id)}${e&&e.logo&&LOGOS[e.logo]?`<span class="news-art__logo"><img src="${LOGOS[e.logo]}" alt="${esc(e.name)} logo"></span>`:""}</div>`}
+function newsCard(n){const c=cat(n.cat);const ph=newsImg(n);const e=byId(n.ent);return `<a class="news-card" href="#/news/${n.id}"><div class="art">${ph?`<img src="${ph}" alt="" decoding="async">`:newsArtBlock(n)}${ph&&e&&e.logo&&LOGOS[e.logo]?`<span class="badge"><img src="${LOGOS[e.logo]}" alt=""></span>`:""}</div><div class="b"><div class="news-meta"><span class="eyebrow">${esc(c?c.name:"Group")}</span><span class="muted">${fmtDate(n.date)}</span></div><h3 class="serif">${esc(n.title)}</h3><p class="news-ex">${esc(n.body.split(". ")[0].replace(/\.$/,""))}.</p><span class="link-arrow">Read story →</span></div></a>`}
 function pageHero(eyebrow,title,lead,crumbs,img){return `<section class="page-hero">${img?`<div class="hero-photo">${photo(img,"")}</div>`:""}<div class="hero-art">${SWOOSH("rgba(206,34,48,.9)",2).replace("<svg",'<svg style="position:absolute;right:-80px;top:-40px;width:560px;opacity:.7"')}</div><div class="wrap">${crumbs?`<div class="crumbs">${crumbs}</div>`:""}${eyebrow?`<div class="eyebrow">${esc(eyebrow)}</div>`:""}<h1 class="h-l" style="margin-top:10px">${title}</h1>${lead?`<p>${lead}</p>`:""}</div></section>`}
 
 /* ---------- pages ---------- */
@@ -647,7 +671,7 @@ ${f&&f.url?`<a class="rg-btn rg-btn--primary" href="${f.url}" target="_blank" re
 
 function news(){return pageHero("News","News & announcements","Announcements from across the group's businesses.",`<a href="#/">Home</a> / News`)+`<section class="section"><div class="wrap"><div class="grid g3">${DB.news.slice().sort((a,b)=>b.date.localeCompare(a.date)).map(newsCard).join("")}</div></div></section>`}
 function article(id){const n=DB.news.find(x=>x.id===id);if(!n)return notFound();const e=byId(n.ent);
- return pageHero(cat(n.cat)?cat(n.cat).name:"News",esc(n.title),fmtDate(n.date),`<a href="#/">Home</a> / <a href="#/news">News</a>`,e&&IMG(e)[0])+`<section class="section"><div class="wrap" style="max-width:820px"><p style="font-size:19px;line-height:32px">${esc(n.body)}</p>${e&&e.published?`<p><a class="link-arrow" href="#/b/${e.id}">About ${esc(e.name)} →</a></p>`:""}<div class="note">Sources: ${n.src.map(s=>SOURCES[s]&&SOURCES[s].url?`<a href="${SOURCES[s].url}" target="_blank" rel="noopener">${esc(SOURCES[s].t)}</a>`:esc((SOURCES[s]||{}).t||"")).join(" · ")}</div></div></section>`}
+ const ph=newsImg(n);return pageHero(cat(n.cat)?cat(n.cat).name:"News",esc(n.title),fmtDate(n.date),`<a href="#/">Home</a> / <a href="#/news">News</a>`)+`<section class="section" style="padding-top:40px"><div class="wrap" style="max-width:820px"><figure class="news-fig">${ph?`<img src="${ph}" alt="">`:newsArtBlock(n)}</figure><p style="font-size:19px;line-height:32px">${esc(n.body)}</p>${e&&e.published?`<p><a class="link-arrow" href="#/b/${e.id}">About ${esc(e.name)} →</a></p>`:""}<div class="note">Sources: ${n.src.map(s=>SOURCES[s]&&SOURCES[s].url?`<a href="${SOURCES[s].url}" target="_blank" rel="noopener">${esc(SOURCES[s].t)}</a>`:esc((SOURCES[s]||{}).t||"")).join(" · ")}</div></div></section>`}
 
 function careers(){const hiring=pub().filter(e=>e.url&&!["brand","property"].includes(e.type)&&!e.cats.includes("impact"));
  return pageHero("Careers","Work with us","Each business recruits for its own roles. Find the business you'd like to join, or register with our recruitment company.",`<a href="#/">Home</a> / Careers`)+

@@ -267,3 +267,24 @@ body.menu-open{overflow:hidden}
 @media(max-width:900px){.leader--full,.grid .leader--full{grid-template-columns:1fr}.leader--full .leader__photo{aspect-ratio:4/3}}
 .grid .leader--full .leader__photo small{display:none}
 .leader__photo img{object-position:50% 25%}
+
+.news-card{display:flex;flex-direction:column;transition:box-shadow .2s,transform .2s}
+.news-card:hover{box-shadow:var(--shadow-card);transform:translateY(-2px)}
+.news-card .art{height:200px;position:relative}
+.news-card .art>img{width:100%;height:100%;object-fit:cover;display:block}
+.news-card .badge{position:absolute;left:14px;bottom:-1px;background:#fff;border:1px solid var(--line);border-bottom:0;border-radius:4px 4px 0 0;height:48px;padding:6px 10px;display:flex;align-items:center}
+.news-card .badge img{height:34px;width:auto;max-width:100px;object-fit:contain}
+.news-card .b{display:flex;flex-direction:column;gap:8px;flex:1}
+.news-card h3{margin:2px 0 0}
+.news-meta{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:13px}
+.news-ex{margin:0;font-size:14px;line-height:22px;color:var(--ink-muted);flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.news-card .link-arrow{align-self:flex-start;margin-top:6px;font-size:14px}
+.news-card:hover .link-arrow{color:var(--red)}
+.news-art{position:relative;width:100%;height:100%;background:var(--maroon)}
+.news-art svg{position:absolute;inset:0;width:100%;height:100%}
+.news-art__logo{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;border-radius:4px;padding:12px 18px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.news-art__logo img{height:64px;width:auto;display:block}
+.news-fig{margin:0 0 32px;border-radius:var(--radius-md);overflow:hidden;height:420px;background:var(--stone)}
+.news-fig img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:640px){.news-fig{height:240px}.news-card .art{height:180px}}
+@media(max-width:640px){.ftr-top{grid-template-columns:1fr;gap:28px}.ftr ul{line-height:34px}}
