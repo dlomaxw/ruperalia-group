@@ -66,7 +66,7 @@ const LEADERS=[
  {id:"sudhir",name:"Dr. Sudhir Ruparelia",role:"Chairman & Founder",photo:PHOTOS["leader-sudhir"],
   bio:["Dr. Sudhir Ruparelia founded the Ruparelia Group and serves as its Chairman. Born in Uganda, he left for the United Kingdom with his family in 1972 and returned in 1985, starting out in trading before building businesses in real estate, hospitality, education, floriculture, insurance and media.",
        "In 2007 he received an honorary Doctor of Laws from Uganda Pentecostal University in recognition of his contribution to Uganda's economic growth. With Mrs. Jyotsna Ruparelia, he established the Ruparelia Foundation in 2012."]},
- {id:"jyotsna",name:"Mrs. Jyotsna Ruparelia",role:"Director",photo:null,
+ {id:"jyotsna",name:"Mrs. Jyotsna Ruparelia",role:"Director",photo:PHOTOS["leader-jyotsna"],
   bio:["Mrs. Jyotsna Ruparelia is a Director of the Ruparelia Group. She co-founded the Ruparelia Foundation with Dr. Sudhir Ruparelia in 2012 to support education, health and community programmes in Uganda."]},
  {id:"sheena",name:"Ms. Sheena Ruparelia",role:"Director",photo:PHOTOS["leader-sheena"],
   bio:["Ms. Sheena Ruparelia is a Director of the Ruparelia Group. She leads the development of Paradise Island Resort, the group's private-island retreat on Lake Victoria."]}
