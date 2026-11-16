@@ -91,7 +91,7 @@ const ENTITIES=[
  facts:{"Founded":"1993","Campus":"Bukoto, Kampala","Curricula":"British curriculum, IGCSE, IB Diploma"},edu:{level:"Early years to Year 13",admissions:"https://www.kisu.com"},src:[1,5,35]},
 {id:"kampala-parents-school",name:"Kampala Parents' School",cats:["education"],type:"institution",rel:"group-company",status:"active",country:["Uganda"],url:"https://kampalaparents.com",logo:"kampala-parents-school",conf:"high",published:true,
  short:"Primary school in Kampala.",long:"Kampala Parents' School is a primary school in Kampala.",facts:{"Level":"Primary"},edu:{level:"Primary",admissions:"https://kampalaparents.com"},src:[1]},
-{id:"dps-international",name:"Delhi Public School International",cats:["education"],type:"institution",rel:"group-company",status:"active",country:["Uganda"],url:"https://dpsuganda.com",logo:null,conf:"high",published:true,
+{id:"dps-international",name:"Delhi Public School International",cats:["education"],type:"institution",rel:"group-company",status:"active",country:["Uganda"],url:"https://dpsuganda.com",logo:"dps-international",conf:"high",published:true,
  short:"CBSE-affiliated international school in Naguru, Kampala.",
  long:"Delhi Public School International follows the Indian (CBSE) curriculum from nursery to Class XII at its Saddler Way campus in Naguru.",
  facts:{"Campus":"Plot 17–25 Saddler Way, Naguru","Curriculum":"CBSE (Indian)"},edu:{level:"Nursery to Class XII",admissions:"https://dpsuganda.com"},src:[1,35]},
