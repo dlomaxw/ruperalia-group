@@ -290,3 +290,7 @@ body.menu-open{overflow:hidden}
 @media(max-width:640px){.ftr-top{grid-template-columns:1fr;gap:28px}.ftr ul{line-height:34px}}
 .rg-card__go{font-size:13px;font-weight:600;color:var(--red);margin-top:6px}
 .rg-card:hover .rg-card__go{text-decoration:underline}
+
+.rg-card__photo .badge{height:66px;min-width:66px;padding:8px 12px;left:16px}
+.rg-card__photo .badge img{height:50px;max-width:150px}
+.rg-card__logo{height:150px}.rg-card__logo img{max-height:110px}

@@ -1,10 +1,10 @@
 (function(){
 "use strict";
 /* ---------- state & storage ---------- */
-const KEY="rg-cms-v3";
+const KEY="rg-cms-v4";
 SOURCES[41]={t:"Each business's own website (checked 16 Nov 2026)",tier:"B"};
 let DB=load();
-function enrich(list){list.forEach(e=>{if(PHOTO_MAP[e.id])e.photos=PHOTO_MAP[e.id];const x=FROM_SITES[e.id];if(!x)return;["contact","long","short","list","listTitle","url","edu","linkLabel"].forEach(k=>{if(x[k])e[k]=x[k]});if(x.facts)e.facts=Object.assign({},e.facts,x.facts);if(x.internal)e.internal=(e.internal?e.internal+" ":"")+x.internal;e.src=[...(e.src||[]),41]});return list}
+function enrich(list){list.forEach(e=>{if(PHOTO_MAP[e.id])e.photos=PHOTO_MAP[e.id];const x=FROM_SITES[e.id];if(!x)return;["contact","long","short","list","listTitle","url","edu","linkLabel","logo"].forEach(k=>{if(x[k])e[k]=x[k]});if(x.facts)e.facts=Object.assign({},e.facts,x.facts);if(x.internal)e.internal=(e.internal?e.internal+" ":"")+x.internal;e.src=[...(e.src||[]),41]});return list}
 function seed(){return{entities:enrich(JSON.parse(JSON.stringify(ENTITIES))),categories:JSON.parse(JSON.stringify(CATEGORIES)),news:JSON.parse(JSON.stringify(NEWS)),
  audit:[{t:new Date().toISOString(),u:"System",a:"Imported",r:"Portfolio directory (15 Nov 2026) and online checks (16 Nov 2026)"}],
  workflow:{"arie-towers":"Legal review","vcon":"Legal review","premier-credit":"Legal review","kampala-tourist-hotel":"Research review","premier-sand":"Research review","rr-rally-team":"Research review","serene-recruitment-ug":"Research review","premier-central-properties":"Research review"}}}
@@ -17,7 +17,8 @@ const byId=id=>DB.entities.find(e=>e.id===id);
 const cat=id=>DB.categories.find(c=>c.id===id);
 const visCats=()=>DB.categories.filter(c=>c.visible);
 const initials=n=>n.replace(/\(.*?\)/g,"").split(/\s+/).filter(w=>/^[A-Z0-9]/.test(w)).slice(0,2).map(w=>w[0]).join("");
-const logo=(e,cls="")=>e.logo&&LOGOS[e.logo]?`<img src="${LOGOS[e.logo]}" alt="${esc(e.name)} logo" class="${cls}">`:`<span class="mono">${esc(initials(e.name))}</span>`;
+const lkey=e=>e.logo||(e.parent&&byId(e.parent)&&byId(e.parent).logo)||null;
+const logo=(e,cls="")=>lkey(e)&&LOGOS[lkey(e)]?`<img src="${LOGOS[lkey(e)]}" alt="${esc(e.name)} logo" class="${cls}">`:`<span class="mono">${esc(initials(e.name))}</span>`;
 const IMG=e=>(e.photos||[]).map(k=>PHOTOS[k]).filter(Boolean);
 const full=u=>u.replace(/-\d+x\d+(\.(jpe?g|png|webp))$/i,"$1");
 const photo=(u,alt,cls="")=>u.startsWith("data:")?`<img class="${cls}" src="${u}" alt="${esc(alt)}" decoding="async">`:`<img class="${cls}" src="${esc(full(u))}" data-t="${esc(u)}" alt="${esc(alt)}" loading="lazy" onerror="if(this.src!==this.dataset.t){this.src=this.dataset.t}else{this.parentNode.classList.add('noimg');this.remove()}">`;
@@ -34,7 +35,7 @@ const HERO_VIDEO="_tdrZpPlFLQ";
 const SECTOR_PHOTO={"hospitality":"speke-group-2","real-estate":"pearl-business-park-2","education":"kisu-1","floriculture":"rosebud-1","media":"premier-advertising-1","workforce":"inaries-1","insurance":"kingdom-kampala-2"};
 function sectorTile(c,light){const n=pub().filter(e=>e.cats.includes(c.id)).length;const ph=!light&&PHOTOS[SECTOR_PHOTO[c.id]];return `<a class="rg-sector${light?" rg-sector--light":""}${ph?" rg-sector--photo":""}" href="#/businesses/${c.id}">${ph?`<img class="sp" src="${ph}" alt="" decoding="async">`:""}${SWOOSH()}<span class="rg-sector__count">${esc(c.count||n+" businesses")}</span><span class="rg-sector__name">${esc(c.name)}</span></a>`}
 function newsArt(seed){const r=(seed.length*37)%30-15;return `<svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice"><rect width="400" height="170" fill="#4a0e12"/><rect x="${250+r}" width="150" height="170" fill="#5e151a"/><ellipse cx="${260+r}" cy="90" rx="190" ry="62" transform="rotate(-14 260 90)" fill="none" stroke="#ce2230" stroke-width="3"/><ellipse cx="${300+r}" cy="70" rx="140" ry="40" transform="rotate(-14 300 70)" fill="none" stroke="rgba(247,244,239,.35)" stroke-width="1.5"/></svg>`}
-const NEWS_PHOTO={"goldstar-30":null,"kabira":"kabira-country-club-1"};
+const NEWS_PHOTO={"goldstar-30":"goldstar-30-years","kabira":"kabira-country-club-1"};
 const newsImg=n=>{if(n.id in NEWS_PHOTO)return NEWS_PHOTO[n.id]?PHOTOS[NEWS_PHOTO[n.id]]:null;const e=byId(n.ent);return e&&IMG(e)[0]};
 function newsArtBlock(n){const e=byId(n.ent);return `<div class="news-art">${newsArt(n.id)}${e&&e.logo&&LOGOS[e.logo]?`<span class="news-art__logo"><img src="${LOGOS[e.logo]}" alt="${esc(e.name)} logo"></span>`:""}</div>`}
 function newsCard(n){const c=cat(n.cat);const ph=newsImg(n);const e=byId(n.ent);return `<a class="news-card" href="#/news/${n.id}"><div class="art">${ph?`<img src="${ph}" alt="" decoding="async">`:newsArtBlock(n)}${ph&&e&&e.logo&&LOGOS[e.logo]?`<span class="badge"><img src="${LOGOS[e.logo]}" alt=""></span>`:""}</div><div class="b"><div class="news-meta"><span class="eyebrow">${esc(c?c.name:"Group")}</span><span class="muted">${fmtDate(n.date)}</span></div><h3 class="serif">${esc(n.title)}</h3><p class="news-ex">${esc(n.body.split(". ")[0].replace(/\.$/,""))}.</p><span class="link-arrow">Read story →</span></div></a>`}

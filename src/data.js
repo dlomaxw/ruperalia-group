@@ -205,3 +205,7 @@ const FROM_SITES={
  "inaries":{imgs:["https://inaries.com/wp-content/uploads/2023/03/Inaries-Training-Session-3.jpg"],long:"Inaries Training Centre is an approved training institution accredited by the Ministry of Gender, Labour and Social Development. It prepares workers for overseas employment, covering workplace safety, customer service and employment contracts, with practical lessons.",short:"Accredited training centre preparing workers for overseas employment.",contact:{a:"Speke Resort Munyonyo, Makindye, Kampala",e:"info@inaries.com"},facts:{"Accreditation":"Ministry of Gender, Labour and Social Development","Partners":"Premier, Sphere and Serene Recruitment"}},
  "ruparelia-foundation":{imgs:["https://www.rupareliafoundation.org/wp-content/uploads/2016/06/fesh-kid-750x500.jpg","https://www.rupareliafoundation.org/wp-content/uploads/2019/05/donate-blood-750x500.jpg"],contact:{a:"4th Floor, Crane Chambers, Kampala Road",p:"+256 702 711 271",e:"info@rupareliafoundation.org"},facts:{"Motto":"Enriching Lives Together","Focus":"Education, health, community support, sports, start-ups, wildlife and environment"}}
 };
+
+/* Logos supplied by Bright Thoughts Services, 16 Nov 2026 */
+["inaries","sphere-recruitment","premier-recruitment","premier-advertising","speke-resort-convention-centre","paradise-island-resort"].forEach(id=>{FROM_SITES[id]=Object.assign(FROM_SITES[id]||{},{logo:id})});
+FROM_SITES["sphere-recruitment"].imgs=null;
