@@ -233,3 +233,14 @@ table.t{width:100%;border-collapse:collapse;background:#fff;border:1px solid var
 
 .login{min-height:calc(100vh - 120px);display:flex;align-items:center;justify-content:center;padding:48px 20px;background:var(--stone)}
 .login form{width:min(400px,100%)}
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero--video{height:calc(100vh - 114px);min-height:460px;max-height:860px;background:#0d0d0d}
+.hv-poster,.hv-poster img{position:absolute;z-index:0;inset:0;width:100%;height:100%;object-fit:cover}
+.hv-frame{position:absolute;z-index:1;top:50%;left:50%;width:100vw;height:56.25vw;min-width:177.78vh;min-height:100%;transform:translate(-50%,-50%) scale(1.06);border:0;pointer-events:none;opacity:0;transition:opacity 1.2s ease}
+.hv-frame.on{opacity:1}
+.hv-down{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);width:44px;height:44px;border-radius:999px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;z-index:3}
+.hv-down svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2}
+.hv-down:hover{background:rgba(255,255,255,.32)}
+@media(max-width:760px){.hero--video{height:62vh;min-height:360px}}
+@media(prefers-reduced-motion:reduce){.hv-frame{display:none}}

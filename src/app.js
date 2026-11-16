@@ -28,6 +28,7 @@ function confTag(c){return `<span class="rg-tag rg-tag--${c==="high"?"positive":
 
 /* ---------- shared pieces ---------- */
 function card(e){const c=cat(e.cats[0]);return `<a class="rg-card" href="#/b/${e.id}">${IMG(e).length?`<div class="rg-card__photo">${photo(IMG(e)[0],e.name)}<span class="badge">${logo(e)}</span></div>`:`<div class="rg-card__logo">${logo(e)}</div>`}<div class="rg-card__body"><p class="rg-card__name">${esc(e.name)}</p><p class="rg-card__desc">${esc(e.short)}</p><div class="tags">${c?`<span class="rg-tag">${esc(c.name)}</span>`:""}<span class="rg-tag">${esc(TYPE_LABEL[e.type]||e.type)}</span>${e.status==="pre-opening"?statusTag(e):""}</div></div></a>`}
+const HERO_VIDEO="_tdrZpPlFLQ";
 const SECTOR_PHOTO={"hospitality":"speke-group-2","real-estate":"pearl-business-park-2","education":"kisu-1","floriculture":"rosebud-1","media":"premier-advertising-1","workforce":"inaries-1","insurance":"kingdom-kampala-2"};
 function sectorTile(c,light){const n=pub().filter(e=>e.cats.includes(c.id)).length;const ph=!light&&PHOTOS[SECTOR_PHOTO[c.id]];return `<a class="rg-sector${light?" rg-sector--light":""}${ph?" rg-sector--photo":""}" href="#/businesses/${c.id}">${ph?`<img class="sp" src="${ph}" alt="" decoding="async">`:""}${SWOOSH()}<span class="rg-sector__count">${esc(c.count||n+" businesses")}</span><span class="rg-sector__name">${esc(c.name)}</span></a>`}
 function newsArt(seed){const r=(seed.length*37)%30-15;return `<svg viewBox="0 0 400 170" preserveAspectRatio="xMidYMid slice"><rect width="400" height="170" fill="#4a0e12"/><rect x="${250+r}" width="150" height="170" fill="#5e151a"/><ellipse cx="${260+r}" cy="90" rx="190" ry="62" transform="rotate(-14 260 90)" fill="none" stroke="#ce2230" stroke-width="3"/><ellipse cx="${300+r}" cy="70" rx="140" ry="40" transform="rotate(-14 300 70)" fill="none" stroke="rgba(247,244,239,.35)" stroke-width="1.5"/></svg>`}
@@ -39,14 +40,12 @@ function home(){
  const feat=pub().filter(e=>e.featured).sort((a,b)=>a.featured-b.featured).slice(0,6);
  const f=byId("ruparelia-foundation");
  return `
-<section class="hero"><div class="hero-photo">${photo(PHOTOS["speke-resort-munyonyo-1"],"Speke Resort Munyonyo on Lake Victoria")}</div><div class="hero-art"><svg viewBox="0 0 880 520" aria-hidden="true"><ellipse cx="520" cy="260" rx="380" ry="150" transform="rotate(-14 520 260)" fill="none" stroke="#ce2230" stroke-width="4"/><ellipse cx="560" cy="240" rx="300" ry="110" transform="rotate(-14 560 240)" fill="none" stroke="rgba(247,244,239,.28)" stroke-width="1.5"/><ellipse cx="600" cy="300" rx="220" ry="74" transform="rotate(-14 600 300)" fill="none" stroke="rgba(247,244,239,.16)" stroke-width="1"/></svg></div>
-<div class="wrap"><div class="eyebrow" style="color:#ffb3b7">Ruparelia Group · Kampala, Uganda</div>
-<h1 class="h-xl" style="margin-top:16px">Building enduring businesses.<br><i>Creating lasting impact.</i></h1>
-<p class="lead">A diversified Ugandan group in hospitality, real estate, education, floriculture, insurance, media and workforce services.</p>
-<div class="acts"><a class="rg-btn rg-btn--primary" href="#/businesses">Explore our businesses</a><a class="rg-btn rg-btn--on-dark" href="#/about">About Ruparelia Group</a></div>
-<div class="line"><span class="quote" style="color:rgba(247,244,239,.9)">“Serving to Grow and Growing to Serve”</span></div></div></section>
+<section class="hero hero--video" aria-label="Paradise Island Resort video"><h1 class="sr-only">Ruparelia Group: building enduring businesses in Uganda</h1>
+<div class="hv-poster">${photo(PHOTOS["paradise-island-resort-3"],"")}</div>
+<iframe class="hv-frame" src="https://www.youtube-nocookie.com/embed/${HERO_VIDEO}?autoplay=1&mute=1&loop=1&playlist=${HERO_VIDEO}&controls=0&disablekb=1&modestbranding=1&rel=0&playsinline=1&iv_load_policy=3&fs=0&enablejsapi=1${location.protocol.startsWith("http")?"&origin="+encodeURIComponent(location.origin):""}" title="Paradise Island Resort" allow="autoplay; encrypted-media; picture-in-picture" tabindex="-1" aria-hidden="true" onload="this.contentWindow&&this.contentWindow.postMessage(JSON.stringify({event:'listening',id:'hv'}),'*')"></iframe>
+<a class="hv-down" href="#sectors" aria-label="Scroll to our sectors"><svg viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg></a></section>
 
-<section class="section"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">Our sectors</div><h2 class="h-l" style="margin-top:10px">Seven sectors, one group</h2></div><a class="link-arrow" href="#/businesses">View all businesses →</a></div>
+<section class="section" id="sectors"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">Our sectors</div><h2 class="h-l" style="margin-top:10px">Seven sectors, one group</h2></div><a class="link-arrow" href="#/businesses">View all businesses →</a></div>
 <div class="grid g4">${visCats().map((c,i)=>sectorTile(c,false)).join("")}<a class="rg-sector rg-sector--photo" href="#/impact"><img class="sp" src="${PHOTOS["ruparelia-foundation-3"]}" alt="" decoding="async">${SWOOSH()}<span class="rg-sector__count">Philanthropy</span><span class="rg-sector__name">Foundation & impact</span></a></div></div></section>
 
 <section class="section section--stone"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">Selected businesses</div><h2 class="h-l" style="margin-top:10px">Across the portfolio</h2></div><a class="link-arrow" href="#/businesses">Business directory →</a></div>
@@ -298,5 +297,7 @@ document.addEventListener("DOMContentLoaded",()=>{
  $("#soq").addEventListener("keydown",e=>{if(e.key==="Enter"){const a=$("#sores a");if(a){location.hash=a.getAttribute("href");so.classList.remove("open")}}});
  so.addEventListener("click",e=>{if(e.target===so||e.target.closest("a"))so.classList.remove("open")});
  document.addEventListener("keydown",e=>{if(e.key==="Escape"){so.classList.remove("open");$("#drawer").classList.remove("open")}if(e.key==="/"&&!/INPUT|TEXTAREA|SELECT/.test(document.activeElement.tagName)){e.preventDefault();openSearch()}});
+ window.addEventListener("message",e=>{if(!/youtube(-nocookie)?\.com$/.test(new URL(e.origin).hostname))return;let d;try{d=JSON.parse(e.data)}catch(x){return}const st=d&&d.info&&(d.info.playerState!==undefined?d.info.playerState:null);const f=document.querySelector(".hv-frame");if(f&&st===1)f.classList.add("on")});
+ document.addEventListener("click",e=>{const a=e.target.closest('a[href="#sectors"]');if(a){e.preventDefault();document.getElementById("sectors").scrollIntoView({behavior:"smooth"})}});
  window.addEventListener("hashchange",route);route()});
 })();
