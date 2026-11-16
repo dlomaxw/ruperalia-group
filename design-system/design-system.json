@@ -1,0 +1,222 @@
+{
+ "v": 3,
+ "layout": "files",
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-11-16T08:29:06Z"
+ },
+ "title": "Ruparelia Group",
+ "namespace": "RupareliaGroup",
+ "libraries": [],
+ "sections": {},
+ "groups": [
+  "Group",
+  "Businesses",
+  "Historical"
+ ],
+ "assetGroups": {
+  "Group": {
+   "name": "Group",
+   "tile": "l",
+   "order": [
+    "ruparelia-group.png"
+   ],
+   "files": {
+    "ruparelia-group.png": {
+     "name": "ruparelia-group.png",
+     "blob": "218abb4cedc405d360defb13d708eb71",
+     "size": 21595,
+     "type": "image/png"
+    }
+   }
+  },
+  "Businesses": {
+   "name": "Businesses",
+   "tile": "m",
+   "order": [
+    "meera-investments.png",
+    "crane-management-services.png",
+    "speke-hotel.png",
+    "speke-resort-munyonyo.png",
+    "munyonyo-commonwealth-resort.png",
+    "kabira-country-club.png",
+    "dolphin-suites.png",
+    "forest-cottages.png",
+    "tourist-hotel.png",
+    "victoria-university.png",
+    "kisu.png",
+    "kampala-parents-school.png",
+    "goldstar-insurance.png",
+    "sanyu-fm.png",
+    "rosebud.png",
+    "premier-roses.png",
+    "ruparelia-foundation.png",
+    "stanhope.png",
+    "unidentified-globe-logo.png"
+   ],
+   "files": {
+    "meera-investments.png": {
+     "name": "meera-investments.png",
+     "blob": "74eef8218c18de06e1afa114a9635d73",
+     "size": 27593,
+     "type": "image/png"
+    },
+    "crane-management-services.png": {
+     "name": "crane-management-services.png",
+     "blob": "2e1e0e993f0a8a705d064ab467b55bbb",
+     "size": 29579,
+     "type": "image/png"
+    },
+    "speke-hotel.png": {
+     "name": "speke-hotel.png",
+     "blob": "472d350dbb89df27dfee6cee56e66e5b",
+     "size": 43738,
+     "type": "image/png"
+    },
+    "speke-resort-munyonyo.png": {
+     "name": "speke-resort-munyonyo.png",
+     "blob": "d18bc0fa2484f83b8727806cac190eea",
+     "size": 32897,
+     "type": "image/png"
+    },
+    "munyonyo-commonwealth-resort.png": {
+     "name": "munyonyo-commonwealth-resort.png",
+     "blob": "25f4af7704db44881cbaf647ce13caca",
+     "size": 66770,
+     "type": "image/png"
+    },
+    "kabira-country-club.png": {
+     "name": "kabira-country-club.png",
+     "blob": "69438ef892881d68eacf1026a9f8841f",
+     "size": 24962,
+     "type": "image/png"
+    },
+    "dolphin-suites.png": {
+     "name": "dolphin-suites.png",
+     "blob": "ede328532cce9ee2acfed0cc383f4bd9",
+     "size": 35135,
+     "type": "image/png"
+    },
+    "forest-cottages.png": {
+     "name": "forest-cottages.png",
+     "blob": "fbb3d81fb52d754c47db0ec494ef69df",
+     "size": 35445,
+     "type": "image/png"
+    },
+    "tourist-hotel.png": {
+     "name": "tourist-hotel.png",
+     "blob": "208ee60539de27926659a7ea34b891ea",
+     "size": 29286,
+     "type": "image/png"
+    },
+    "victoria-university.png": {
+     "name": "victoria-university.png",
+     "blob": "66ea4bd79a9a8bd624e7663c9b460454",
+     "size": 55504,
+     "type": "image/png"
+    },
+    "kisu.png": {
+     "name": "kisu.png",
+     "blob": "32ad39e8a2f5cd4e1e2973f3d72b692f",
+     "size": 64378,
+     "type": "image/png"
+    },
+    "kampala-parents-school.png": {
+     "name": "kampala-parents-school.png",
+     "blob": "3723ebd7045641be4e46b04e4968049b",
+     "size": 61349,
+     "type": "image/png"
+    },
+    "goldstar-insurance.png": {
+     "name": "goldstar-insurance.png",
+     "blob": "ef673b63000ffe5bf672d8096388188f",
+     "size": 36066,
+     "type": "image/png"
+    },
+    "sanyu-fm.png": {
+     "name": "sanyu-fm.png",
+     "blob": "ec7a41927cb589c5b103db1ec23d3762",
+     "size": 55772,
+     "type": "image/png"
+    },
+    "rosebud.png": {
+     "name": "rosebud.png",
+     "blob": "69b84c941afbc3d17a1a9173f076624e",
+     "size": 51055,
+     "type": "image/png"
+    },
+    "premier-roses.png": {
+     "name": "premier-roses.png",
+     "blob": "297e4707544c319045e5eb15b57d5525",
+     "size": 55726,
+     "type": "image/png"
+    },
+    "ruparelia-foundation.png": {
+     "name": "ruparelia-foundation.png",
+     "blob": "bea071e06c22eef2b86c07fa026dc5b9",
+     "size": 43030,
+     "type": "image/png"
+    },
+    "stanhope.png": {
+     "name": "stanhope.png",
+     "blob": "66709487eec3bbc84d91d32aa1c99291",
+     "size": 37961,
+     "type": "image/png"
+    },
+    "unidentified-globe-logo.png": {
+     "name": "unidentified-globe-logo.png",
+     "blob": "f0d4ad7f8d7a847e9b6e63b1e81b670c",
+     "size": 48716,
+     "type": "image/png"
+    }
+   }
+  },
+  "Historical": {
+   "name": "Historical",
+   "tile": "m",
+   "order": [
+    "crane-bank.png",
+    "crane-financial-services.png",
+    "crane-forex-bureau.png",
+    "redfox-bureau.png"
+   ],
+   "files": {
+    "crane-bank.png": {
+     "name": "crane-bank.png",
+     "blob": "a53b2433994fa01fc99846da8b613ac3",
+     "size": 42573,
+     "type": "image/png"
+    },
+    "crane-financial-services.png": {
+     "name": "crane-financial-services.png",
+     "blob": "be21cfc8d96f915ba1a6dfa18b8c8690",
+     "size": 56648,
+     "type": "image/png"
+    },
+    "crane-forex-bureau.png": {
+     "name": "crane-forex-bureau.png",
+     "blob": "1f4062412bd1c9d0c80018c033a62323",
+     "size": 31950,
+     "type": "image/png"
+    },
+    "redfox-bureau.png": {
+     "name": "redfox-bureau.png",
+     "blob": "76115cf762da11e63c33c914f1edf803",
+     "size": 38099,
+     "type": "image/png"
+    }
+   }
+  }
+ },
+ "blobs": {},
+ "docs": {
+  "readme": "project/README.md",
+  "sections": []
+ },
+ "lastChange": {
+  "by": "Bright Thoughts Services Limited",
+  "at": "2026-11-16T08:29:06Z",
+  "via": "Claude chat",
+  "note": "First version built from the group logo and collage"
+ }
+}

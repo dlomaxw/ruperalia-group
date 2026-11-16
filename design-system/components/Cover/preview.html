@@ -1,0 +1,28 @@
+<!-- @dsCard height=300 -->
+<style>
+.cv{position:relative;width:960px;height:300px;background:var(--paper);overflow:hidden;font-family:var(--font-sans)}
+.cv svg{position:absolute;left:0;top:0}
+.b-maroon{fill:var(--maroon)}.b-red{fill:var(--red)}.b-ink{fill:var(--ink)}.b-stone{fill:var(--stone)}
+.arc-paper{fill:none;stroke:var(--on-dark);stroke-width:2}.arc-red{fill:none;stroke:var(--red);stroke-width:3}
+.cv h1{position:absolute;left:48px;bottom:64px;margin:0;font-family:var(--font-serif);font-weight:400;font-size:88px;line-height:.95;color:var(--ink);max-width:440px}
+.cv h1 i{font-style:italic}
+.cv p{position:absolute;left:48px;bottom:32px;margin:0;font-size:14px;color:var(--ink-muted);max-width:440px}
+</style>
+<div class="cv">
+<svg width="960" height="300" viewBox="0 0 960 300">
+<!-- blocks: maroon 160x300 (x480), red 240x184, ink 80x300 bleeding right, stone 240x116 tint; radius-sm corners (square system)
+     arrangement: one tall maroon slab with a red block and stone tint stacked beside it, ink strip bleeding off the right edge
+     pattern: literal motif — the logo's elliptical swoosh as three thin arcs crossing maroon and red; chosen because the swoosh is the one shape people know this logo by
+     scales: block edges on space-16 (64) / space-24 (96) multiples; strokes 2–3px; radius-sm -->
+<rect class="b-maroon" x="480" y="0" width="160" height="300"/>
+<rect class="b-red" x="640" y="0" width="240" height="184"/>
+<rect class="b-stone" x="640" y="184" width="240" height="116"/>
+<rect class="b-ink" x="880" y="0" width="80" height="300"/>
+<ellipse class="arc-paper" cx="660" cy="150" rx="150" ry="58" transform="rotate(-14 660 150)"/>
+<ellipse class="arc-paper" cx="700" cy="120" rx="190" ry="72" transform="rotate(-14 700 120)"/>
+<ellipse class="arc-red" cx="760" cy="236" rx="96" ry="30" transform="rotate(-14 760 236)"/>
+</svg>
+<h1>Ruparelia<br><i>Group</i></h1>
+<p>Serving to Grow and Growing to Serve</p>
+</div>
+<script></script>
