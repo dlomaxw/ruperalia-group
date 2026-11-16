@@ -54,7 +54,7 @@ function home(){
 <section class="section"><div class="wrap split"><div><div class="eyebrow">Who we are</div><h2 class="h-l" style="margin-top:10px">A Ugandan group built over four decades</h2></div>
 <div><p style="font-size:18px;line-height:30px;margin-top:0">Ruparelia Group brings together businesses that serve Ugandans every day: the hotels where they meet, the buildings where they work, the schools where their children learn, and the farms that carry Ugandan roses to the world.</p>
 <p class="muted">Each business runs under its own management and brand. The group provides capital, property and a shared commitment to long-term investment in Uganda.</p>
-<a class="link-arrow" href="#/about">More about the group →</a></div></div>
+<a class="link-arrow" href="#/about">More about the group →</a> &nbsp; <a class="link-arrow" href="#/leadership">Our leadership →</a></div></div>
 <div class="wrap" style="margin-top:56px"><div class="stats">${METRICS.map(m=>`<div class="stat" title="Source: ${esc(m.src)}"><b>${m.v}</b><span>${esc(m.l)}</span></div>`).join("")}</div></div></section>
 
 <section class="section" style="padding-top:0"><div class="wrap"><div class="impact">${f&&f.logo?`<img src="${LOGOS[f.logo]}" alt="Ruparelia Foundation logo">`:""}<div><div class="eyebrow" style="color:#ffb3b7">Impact</div><h2 class="h-m" style="margin:8px 0">Ruparelia Foundation</h2><p style="margin:0;color:rgba(247,244,239,.85)">Since 2012, the foundation has funded scholarships and community health programmes, including free eye camps, alongside the group's businesses.</p></div><a class="rg-btn rg-btn--on-dark" href="#/impact">Our impact</a></div></div></section>
@@ -62,6 +62,19 @@ function home(){
 <section class="section section--stone"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">News</div><h2 class="h-l" style="margin-top:10px">Latest from the group</h2></div><a class="link-arrow" href="#/news">All news →</a></div>
 <div class="grid g3">${DB.news.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3).map(newsCard).join("")}</div></div></section>`}
 
+const LEADERS=[
+ {id:"sudhir",name:"Dr. Sudhir Ruparelia",role:"Chairman & Founder",photo:null,
+  bio:["Dr. Sudhir Ruparelia founded the Ruparelia Group and serves as its Chairman. Born in Uganda, he left for the United Kingdom with his family in 1972 and returned in 1985, starting out in trading before building businesses in real estate, hospitality, education, floriculture, insurance and media.",
+       "In 2007 he received an honorary Doctor of Laws from Uganda Pentecostal University in recognition of his contribution to Uganda's economic growth. With Mrs. Jyotsna Ruparelia, he established the Ruparelia Foundation in 2012."]},
+ {id:"jyotsna",name:"Mrs. Jyotsna Ruparelia",role:"Director",photo:null,
+  bio:["Mrs. Jyotsna Ruparelia is a Director of the Ruparelia Group. She co-founded the Ruparelia Foundation with Dr. Sudhir Ruparelia in 2012 to support education, health and community programmes in Uganda."]},
+ {id:"sheena",name:"Ms. Sheena Ruparelia",role:"Director",photo:null,
+  bio:["Ms. Sheena Ruparelia is a Director of the Ruparelia Group. She leads the development of Paradise Island Resort, the group's private-island retreat on Lake Victoria."]}
+];
+const ini=n=>n.replace(/^(Dr|Mrs|Ms|Mr)\.\s*/,"").split(" ").map(w=>w[0]).join("");
+function leaderCard(l,full){return `<article class="leader${full?" leader--full":""}"><div class="leader__photo">${l.photo?`<img src="${l.photo}" alt="${esc(l.name)}">`:`<span>${esc(ini(l.name))}</span><small>Official portrait to be supplied</small>`}</div><div class="leader__body"><div class="eyebrow">${esc(l.role)}</div><h3 class="serif">${esc(l.name)}</h3>${(full?l.bio:[l.bio[0]]).map(p=>`<p>${esc(p)}</p>`).join("")}${full?"":`<a class="link-arrow" href="#/leadership">Read more →</a>`}</div></article>`}
+function leadership(){const [ch,...dirs]=LEADERS;return pageHero("Leadership","Our leadership","The Ruparelia Group is led by its founder and Chairman, Dr. Sudhir Ruparelia, together with the group's directors.",`<a href="#/">Home</a> / <a href="#/about">About</a> / Leadership`)+
+`<section class="section"><div class="wrap">${leaderCard(ch,true)}<h2 class="h-m" style="margin:64px 0 24px">Directors</h2><div class="grid g2">${dirs.map(d=>leaderCard(d,true)).join("")}</div></div></section>`}
 function about(){
  return pageHero("About","Ruparelia Group","A privately owned Ugandan group with businesses across seven sectors, headquartered in Kampala.",`<a href="#/">Home</a> / About`)+
  `<section class="section"><div class="wrap split"><div class="prose"><div class="eyebrow">Our story</div><h2 class="h-m" style="margin:10px 0 20px">From trading to a diversified group</h2>
@@ -69,8 +82,9 @@ function about(){
 <p>Today its businesses include the Speke Group of Hotels, Crane Management Services and Meera Investments in property, Victoria University and three schools, Goldstar Insurance, 88.2 Sanyu FM, and the rose exporters Rosebud and Premier Roses.</p>
 <p class="muted">The group also reports commercial and real estate interests in Rwanda, South Sudan, the United Kingdom and the United Arab Emirates.</p></div>
 <div><div class="panel"><p class="quote" style="margin:0 0 16px">“Serving to Grow and Growing to Serve”</p><p class="muted" style="margin:0">The group's guiding line: businesses grow by serving their customers and communities well, and growth is a means to serve more of them.</p></div>
-<div class="panel" style="margin-top:20px"><div class="eyebrow">Leadership</div><p style="margin:8px 0 0" class="muted">Leadership profiles will appear here once approved by the group.</p></div></div></div></section>
-<section class="section section--stone"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">Our sectors</div><h2 class="h-l" style="margin-top:10px">Where we work</h2></div></div><div class="grid g4">${visCats().map(c=>sectorTile(c,true)).join("")}</div></div></section>
+</div></div></section>
+<section class="section section--stone"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">Leadership</div><h2 class="h-l" style="margin-top:10px">Our leadership</h2></div><a class="link-arrow" href="#/leadership">Meet our leadership →</a></div><div class="grid g3">${LEADERS.map(l=>leaderCard(l,false)).join("")}</div></div></section>
+<section class="section"><div class="wrap"><div class="sec-head"><div><div class="eyebrow">Our sectors</div><h2 class="h-l" style="margin-top:10px">Where we work</h2></div></div><div class="grid g4">${visCats().map(c=>sectorTile(c,true)).join("")}</div></div></section>
 <section class="section"><div class="wrap"><div class="eyebrow">How we present our portfolio</div><h2 class="h-m" style="margin:10px 0 16px">Clear about every relationship</h2>
 <p class="muted" style="max-width:720px">Each business page says what the business is (a company, a brand, a property) and how it relates to the group: group company, group brand, managed property, joint venture or affiliate. Where a public body holds a stake, the page says so.</p></div></section>`}
 
@@ -264,11 +278,11 @@ function toast(m){const t=$("#toast");t.textContent=m;t.style.display="block";cl
 function header(){return `<div class="concept">Website concept for Ruparelia Group, prepared by Bright Thoughts Services Limited</div>
 <header class="hdr"><div class="wrap"><a class="brand" href="#/" aria-label="Ruparelia Group home"><img src="${LOGOS["ruparelia-group"]}" alt="Ruparelia Group"></a>
 <nav class="nav" id="nav" aria-label="Main"><a href="#/about" data-n="about">About</a><div class="mm" data-n="businesses"><button aria-haspopup="true" onclick="location.hash='#/businesses'">Businesses ▾</button><div class="mm-panel">${visCats().map(c=>`<a href="#/businesses/${c.id}"><b>${esc(c.name)}</b><span>${esc(c.count)}</span></a>`).join("")}<a class="all" href="#/businesses">Full business directory →</a></div></div>
-<a href="#/impact" data-n="impact">Impact</a><a href="#/news" data-n="news">News</a><a href="#/careers" data-n="careers">Careers</a><a href="#/contact" data-n="contact">Contact</a></nav>
+<a href="#/leadership" data-n="leadership">Leadership</a><a href="#/impact" data-n="impact">Impact</a><a href="#/news" data-n="news">News</a><a href="#/careers" data-n="careers">Careers</a><a href="#/contact" data-n="contact">Contact</a></nav>
 <div style="display:flex;gap:4px"><button class="icon-btn" id="sbtn" aria-label="Search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg></button><button class="icon-btn burger" id="burger" aria-label="Menu" aria-expanded="false"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button></div></div></header>`}
 function footer(){return `<footer class="ftr"><div class="wrap"><div class="ftr-top"><div><span class="ftr-logo"><img src="${LOGOS["ruparelia-group"]}" alt="Ruparelia Group"></span><p class="quote" style="font-size:18px;line-height:26px;margin:20px 0 0;color:rgba(247,244,239,.85)">Serving to Grow and Growing to Serve</p></div>
 ${[["Hospitality","hospitality"],["Real estate","real-estate"],["Education","education"]].map(([t,id])=>`<div><h5>${t}</h5><ul>${pub().filter(e=>e.cats[0]===id&&e.type!=="property").slice(0,6).map(e=>`<li><a href="#/b/${e.id}">${esc(e.name.replace(" (KISU)",""))}</a></li>`).join("")}</ul></div>`).join("")}
-<div><h5>Group</h5><ul><li><a href="#/about">About</a></li><li><a href="#/businesses">All businesses</a></li><li><a href="#/impact">Foundation</a></li><li><a href="#/news">News</a></li><li><a href="#/careers">Careers</a></li><li><a href="#/contact">Contact</a></li></ul></div></div>
+<div><h5>Group</h5><ul><li><a href="#/about">About</a></li><li><a href="#/leadership">Leadership</a></li><li><a href="#/businesses">All businesses</a></li><li><a href="#/impact">Foundation</a></li><li><a href="#/news">News</a></li><li><a href="#/careers">Careers</a></li><li><a href="#/contact">Contact</a></li></ul></div></div>
 <div class="ftr-bot"><span>© ${new Date().getFullYear()} Ruparelia Group. Kampala, Uganda.</span><span><a href="#/privacy">Privacy</a> · <a href="#/legal">Legal notices</a></span></div></div></footer>`}
 function simple(t){return pageHero("",t,"This page will hold the group's approved "+t.toLowerCase()+" text.",`<a href="#/">Home</a>`)}
 
@@ -279,13 +293,15 @@ function route(){
  switch(parts[0]){
   case undefined:html=home();break;case "about":html=about();break;
   case "businesses":if(parts[1]){html=category(parts[1])}else{html=directory(q);wire=directoryWire}break;
-  case "b":html=entity(parts[1]);break;case "impact":html=impact();break;
+  case "b":html=entity(parts[1]);break;case "leadership":html=leadership();break;case "impact":html=impact();break;
   case "news":html=parts[1]?article(parts[1]):news();break;case "careers":html=careers();break;
   case "contact":html=contact(q);wire=contactWire;break;case "privacy":html=simple("Privacy");break;case "legal":html=simple("Legal notices");break;
   case "admin":html=admin(parts[1],q);wire=adminWire;break;default:html=notFound()}
  $("#app").innerHTML=header()+`<main id="main">${html}</main>`+(isAdmin?"":footer());
  const nav=$("#nav");$$("[data-n]",nav).forEach(a=>a.classList.toggle("on",a.dataset.n===(parts[0]==="b"?"businesses":parts[0])));
- $("#burger").onclick=()=>{const o=nav.classList.toggle("open");$("#burger").setAttribute("aria-expanded",o)};
+ document.body.classList.remove("menu-open");
+ $("#burger").onclick=()=>{const o=nav.classList.toggle("open");document.body.classList.toggle("menu-open",o);$("#burger").setAttribute("aria-expanded",o);$("#burger").innerHTML=o?'<svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>':'<svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>'};
+ $$("a",nav).forEach(a=>a.addEventListener("click",()=>{nav.classList.remove("open");document.body.classList.remove("menu-open")}));
  $("#sbtn").onclick=openSearch;
  document.title=(parts[0]?($("h1")?$("h1").textContent.trim()+" | ":""):"")+"Ruparelia Group";
  if(wire)wire();if(!h.includes("?")||parts[0]!=="businesses")window.scrollTo(0,0)}
