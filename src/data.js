@@ -18,7 +18,7 @@ const TYPE_LABEL={company:"Legal company",brand:"Operating brand",hotel:"Hotel",
 
 const ENTITIES=[
 /* HOSPITALITY */
-{id:"speke-group",name:"Speke Group of Hotels",cats:["hospitality"],type:"brand",rel:"group-brand",status:"active",country:["Uganda"],url:"https://spekegroup.com",logo:null,conf:"high",featured:1,published:true,
+{id:"speke-group",name:"Speke Group of Hotels",cats:["hospitality"],type:"brand",rel:"group-brand",status:"active",country:["Uganda"],url:"https://spekegroup.com",logo:"speke-group",conf:"high",featured:1,published:true,
  short:"The group's hospitality brand: 13 published hotels, resorts, venues and apartment properties.",
  long:"Speke Group of Hotels operates the group's hospitality portfolio, from the historic Speke Hotel in central Kampala to the lakeside resorts at Munyonyo. Its published portfolio lists 13 properties and venues.",
  facts:{"Properties":"13 hotels, resorts and venues","Headquarters":"Kampala"},src:[2]},
